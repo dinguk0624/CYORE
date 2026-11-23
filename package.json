@@ -1,0 +1,20 @@
+{
+  "name": "cyore",
+  "displayName": "CYORE — Reverse Engineering in Rust",
+  "description": "A VS Code extension written in Rust — reverse-engineering helpers: extracts printable strings from files.",
+  "version": "0.0.1",
+  "publisher": "your-publisher-id",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "activationEvents": ["onCommand:cyore.extractStrings"],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cyore.extractStrings",
+        "title": "CYORE: Extract Strings"
+      }
+    ]
+  }
+}

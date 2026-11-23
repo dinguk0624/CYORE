@@ -1,0 +1,9 @@
+[package]
+name = "cyore"
+version = "0.0.1"
+edition = "2021"
+description = "A VS Code extension written in Rust: reverse-engineering helpers (string extraction)"
+
+[[bin]]
+name = "cyore"
+path = "src/main.rs"
