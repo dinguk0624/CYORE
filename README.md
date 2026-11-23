@@ -1,13 +1,33 @@
 # CYORE — VS Code Extension in Rust
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![VS Code](https://img.shields.io/badge/VS%20Code-Extension-blue?logo=visual-studio-code)](https://code.visualstudio.com/)
+[![Written in Rust](https://img.shields.io/badge/Written-in-Rust-orange?logo=rust)](https://www.rust-lang.org/)
+[![GitHub](https://img.shields.io/badge/Repo-181717?logo=github)](https://github.com/dinguk0624/CYORE)
+
 A VS Code extension written in Rust — the extension is converted to Rust.
+
+## Table of contents
+
+- [Features](#features)
+- [Usage](#usage)
+- [Architecture](#architecture)
+- [Build](#build)
+- [Security](#security)
+- [Publishing](#publishing)
 
 ## Features
 
 - **CYORE: Extract Strings** (`cyore.extractStrings`) — extracts printable
   strings (length ≥ 4) from the active file and shows them in the **CYORE**
-  output channel,
-  prefixed by their offset.
+  output channel, prefixed by their offset.
+
+## Usage
+
+1. Open a file in the editor.
+2. Run the command **CYORE: Extract Strings** (`cyore.extractStrings`).
+3. The extracted strings appear in the **CYORE** output channel
+   (`View → Output → CYORE`) — one line per string, `<offset>  <string>`.
 
 ## Architecture
 
@@ -37,6 +57,19 @@ cargo build
 ```
 
 The wrapper spawns `target/debug/cyore`.
+
+## Security
+
+- The extension spawns the Rust binary `target/debug/cyore` (built with
+  `cargo build`). If the binary is missing, the extension logs an error in
+  the **CYORE** output channel and does nothing else.
+- Extraction runs locally on the path of the active document — no network
+  requests are made, no data leaves the machine, no files are modified.
+- To verify what the extension does, review `src/main.rs` (the extension
+  logic) and `extension.js` (the wrapper).
+- If you find a security issue, please open an issue on the
+  [repository](https://github.com/dinguk0624/CYORE/issues) or use the
+  [security advisories](https://github.com/dinguk0624/CYORE/security/advisories/new).
 
 ## Publishing
 
