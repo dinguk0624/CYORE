@@ -1,14 +1,12 @@
-# CYORE — Reverse Engineering in Rust
+# CYORE — VS Code Extension in Rust
 
-A VS Code extension written in Rust — extensions are converted to Rust, the
-way reverse engineer converts software into readable evidence (see
-[rea-rs](https://github.com/bhubbard/rea-rs)).
+A VS Code extension written in Rust — the extension is converted to Rust.
 
 ## Features
 
 - **CYORE: Extract Strings** (`cyore.extractStrings`) — extracts printable
-  strings (length ≥ 4) from the active file — the classic
-  reverse-engineering move — and shows them in the **CYORE** output channel,
+  strings (length ≥ 4) from the active file and shows them in the **CYORE**
+  output channel,
   prefixed by their offset.
 
 ## Architecture
