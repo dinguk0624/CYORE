@@ -1,4 +1,4 @@
-# CYORE — VS Code Extension in Rust
+# CYORE — CREATE YOUR OWN RUST EXTENSION
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![VS Code](https://img.shields.io/badge/VS%20Code-Extension-blue?logo=visual-studio-code)](https://code.visualstudio.com/)
