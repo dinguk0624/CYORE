@@ -74,6 +74,8 @@ Extension'un da bir CLI'sı var — `cargo build` sonrası binary doğrudan çal
 
 Diğer komutlar: `cyore ping` (sağlık kontrolü), `cyore version`.
 
+Yapım aşamasında komut satırı şu anda aktif. Kolaylık için `cyore.sh`, `cyore.ps1` ve `cyore.cmd` wrapper'ları var.
+
 ### Komut Arama İpuçları
 
 Komut paletinde hızlı erişim:

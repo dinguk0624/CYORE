@@ -80,6 +80,8 @@ The extension also has a CLI. After `cargo build`, run the binary directly:
 
 Other commands: `cyore ping` (health check), `cyore version`.
 
+Yapım aşamasında komut satırı şu anda aktif. Kolaylık için `cyore.sh`, `cyore.ps1` ve `cyore.cmd` wrapper'ları var.
+
 ### Command Search Tips
 
 In the Command Palette, quick access:
