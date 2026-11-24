@@ -4,6 +4,7 @@
 use std::fs;
 use std::io::{self, BufRead, Write};
 
+#[inline]
 fn is_printable(b: u8) -> bool {
     (0x20..0x7f).contains(&b)
 }
@@ -23,24 +24,17 @@ fn push_if_long(
 
 fn extract_strings(data: &[u8], min_len: usize) -> Vec<(usize, String)> {
     let mut found = Vec::new();
-    let mut start = 0usize;
-    let mut len = 0usize;
-    let mut in_str = false;
-
-    for (i, &b) in data.iter().enumerate() {
-        if is_printable(b) {
-            if !in_str {
-                start = i;
-                in_str = true;
-            }
-            len += 1;
-        } else if in_str {
-            push_if_long(data, start, len, min_len, &mut found);
-            in_str = false;
-            len = 0;
+    let mut i = 0usize;
+    while i < data.len() {
+        if !is_printable(data[i]) {
+            i += 1;
+            continue;
         }
-    }
-    if in_str {
+        let start = i;
+        while i < data.len() && is_printable(data[i]) {
+            i += 1;
+        }
+        let len = i - start;
         push_if_long(data, start, len, min_len, &mut found);
     }
     found
