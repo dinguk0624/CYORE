@@ -47,6 +47,7 @@ CYORE/
 Protocol between `extension.js` and `src/main.rs` (stdio):
 
 - `ping` → `pong`
+- `min <n>` → `ok` — minimum string length for extraction (default: `4`; configurable via the `cyore.minStringLength` setting)
 - `extract <path>` → one line per string: `<offset>\t<string>`, then `done\t<count>`
 - `<anything else>` → ignored
 

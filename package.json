@@ -19,6 +19,18 @@
         "command": "cyore.extractStrings",
         "title": "CYORE: Extract Strings"
       }
-    ]
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "CYORE",
+      "properties": {
+        "cyore.minStringLength": {
+          "type": "number",
+          "default": 4,
+          "minimum": 1,
+          "description": "Minimum length of strings to extract."
+        }
+      }
+    }
   }
 }

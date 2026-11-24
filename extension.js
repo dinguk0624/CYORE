@@ -47,7 +47,7 @@ function ensureBackend() {
         log('CYORE: ' + tail + ' string(s) found');
       } else if (head === 'error') {
         log('CYORE error: ' + tail);
-      } else if (head !== 'pong') {
+      } else if (head !== 'pong' && head !== 'ok') {
         log(head + '  ' + tail);
       }
     }
@@ -69,11 +69,13 @@ async function extractStrings() {
     return;
   }
   const filePath = doc.uri.fsPath;
-  log('CYORE: extracting strings from ' + filePath);
+  const minLen = vscode.workspace.getConfiguration().get('cyore.minStringLength', 4);
+  log('CYORE: extracting strings from ' + filePath + ' (min length: ' + minLen + ')');
   if (!proc || proc.killed) {
     vscode.window.showErrorMessage('CYORE: Rust backend is not running');
     return;
   }
+  send('min ' + minLen);
   send('extract ' + filePath);
 }
 

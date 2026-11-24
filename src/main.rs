@@ -51,6 +51,8 @@ fn main() {
     let stdout = io::stdout();
     let mut out = stdout.lock();
 
+    let mut min_len: usize = 4;
+
     for line in stdin.lock().lines() {
         let line = match line {
             Ok(l) => l,
@@ -59,11 +61,16 @@ fn main() {
         let line = line.trim();
         if line == "ping" {
             let _ = writeln!(out, "pong");
+        } else if let Some(n) = line.strip_prefix("min ") {
+            if let Ok(v) = n.trim().parse::<usize>() {
+                min_len = v;
+                let _ = writeln!(out, "ok");
+            }
         } else if line.starts_with("extract ") {
             let path = line["extract ".len()..].to_string();
             match fs::read(&path) {
                 Ok(data) => {
-                    let strings = extract_strings(&data, 4);
+                    let strings = extract_strings(&data, min_len);
                     let count = strings.len();
                     for (offset, s) in &strings {
                         let _ = writeln!(out, "{}\t{}", offset, s);
@@ -76,5 +83,37 @@ fn main() {
             }
         }
         let _ = out.flush();
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::extract_strings;
+
+    #[test]
+    fn extracts_strings_with_offsets() {
+        let data = b"hello world, this is a test\nsecond line with more text\nshort\n";
+        assert_eq!(
+            extract_strings(data, 4),
+            vec![
+                (0usize, "hello world, this is a test".to_string()),
+                (28usize, "second line with more text".to_string()),
+                (55usize, "short".to_string()),
+            ]
+        );
+    }
+
+    #[test]
+    fn respects_min_len() {
+        let data = b"ab\ncd\nefgh\n";
+        assert_eq!(extract_strings(data, 4), vec![(6usize, "efgh".to_string())]);
+        assert_eq!(
+            extract_strings(data, 2),
+            vec![
+                (0usize, "ab".to_string()),
+                (3usize, "cd".to_string()),
+                (6usize, "efgh".to_string()),
+            ]
+        );
     }
 }
