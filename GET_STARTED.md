@@ -1,20 +1,20 @@
 # Get Started
 
-Kurulum ve kurulum sonrası adımlar — Windows, PowerShell, Anaconda, Miniconda, Linux terminal, macOS terminal.
+Installation and post-install steps — Windows, PowerShell, Anaconda, Miniconda, Linux terminal, macOS terminal.
 
-## 1. Kurulum
+## 1. Installation
 
 ### Windows
 
-- [rustup installer](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe)'i indirip çalıştırın (Rust toolchain).
-- Terminal'de: `cargo build`
+- Download and run the [rustup installer](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe) (Rust toolchain).
+- In the terminal: `cargo build`
 
 ### PowerShell (Windows)
 
 ```powershell
-# Sistemde Rust yoksa — Rust'ı indirip çalıştırın
-# (veya `winget install Rustlang.Rustup`).
-# Sonrasında:
+# If no Rust is installed — install Rust
+# (or `winget install Rustlang.Rustup`).
+# Then:
 cargo build
 ```
 
@@ -24,7 +24,7 @@ cargo build
 conda install -c conda-forge rust
 ```
 
-Veya yeni ortam: `conda create -n cyore -c conda-forge rust` → `conda activate cyore` → `cargo build`.
+Or create a new environment: `conda create -n cyore -c conda-forge rust` → `conda activate cyore` → `cargo build`.
 
 ### Miniconda
 
@@ -32,7 +32,7 @@ Veya yeni ortam: `conda create -n cyore -c conda-forge rust` → `conda activate
 conda install -c conda-forge rust
 ```
 
-Sonra `cargo build`.
+Then `cargo build`.
 
 ### Linux terminal
 
@@ -48,14 +48,14 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 cargo build
 ```
 
-### Genel (tüm platformlar)
+### General (all platforms)
 
-1. `cargo build` — extension, Rust backend'ini `target/debug/cyore` dosyasından başlatır.
-2. VS Code'da `F5` (Extension Development Host) basarak extension'u test edin.
+1. `cargo build` — the extension spawns the Rust backend from `target/debug/cyore`.
+2. In VS Code, press `F5` (Extension Development Host) to test the extension.
 
-## 2. Provider Bağlama (AI)
+## 2. Provider Connection (AI)
 
-`settings.json` içine yapıştırılabilir ayarlar:
+Settings for `settings.json`:
 
 ```json
 {
@@ -64,33 +64,33 @@ cargo build
 }
 ```
 
-- `cyore.aiProvider` — `claude`, `qwen` veya `openai`.
-- `cyore.aiApiKey` — seçilen provider için API key.
-- Varsayılan modeller: Claude için `claude-3-5-sonnet-20241022`, Qwen için `qwen-turbo`, OpenAI için `gpt-4o-mini`.
+- `cyore.aiProvider` — `claude`, `qwen` or `openai`.
+- `cyore.aiApiKey` — the API key for the selected provider.
+- Default models: Claude — `claude-3-5-sonnet-20241022`, Qwen — `qwen-turbo`, OpenAI — `gpt-4o-mini`.
 
 ## 3. Tutorials
 
-### A. String Çıkarma — `CYORE: Extract Strings` (`cyore.extractStrings`)
+### A. String Extraction — `CYORE: Extract Strings` (`cyore.extractStrings`)
 
-1. Bir dosya açın.
-2. Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) üzerinden `CYORE: Extract Strings` komutunu çalıştırın.
-3. Sonuçlar `View -> Output -> CYORE` üzerinde görünür — her satır offset ile bir string: `<offset>\t<string>`.
+1. Open a file in the editor.
+2. Run the `CYORE: Extract Strings` command via the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`).
+3. The results appear in `View -> Output -> CYORE` — one line per string with its offset: `<offset>\t<string>`.
 
-### B. AI ile Dosyayı Rust'a Dönüştürme — `CYORE: Convert File to Rust with AI` (`cyore.convertToRustAI`)
+### B. Convert File to Rust with AI — `CYORE: Convert File to Rust with AI` (`cyore.convertToRustAI`)
 
-1. Ayarlarda `cyore.aiProvider` ve `cyore.aiApiKey`'i yapılandırın.
-2. Aktif dosyada `CYORE: Convert File to Rust with AI` komutunu çalıştırın.
-3. Üretilen Rust kodu `CYORE` output channel'ında görünür; `cargo check` / `cargo build` ile doğrulayın.
+1. Configure `cyore.aiProvider` and `cyore.aiApiKey` in settings.
+2. Run the `CYORE: Convert File to Rust with AI` command on the active file.
+3. The generated Rust code appears in the `CYORE` output channel; verify with `cargo check` / `cargo build`.
 
-Detaylar: [README — Usage](README.md#usage), [INSTALL.md](INSTALL.md), [Troubleshooting](README.md#troubleshooting).
+Details: [README — Usage](README.md#usage), [INSTALL.md](INSTALL.md), [Troubleshooting](README.md#troubleshooting).
 
 ## 4. CLI (PowerShell, CMD, terminal)
 
-Uzantının özellikleri doğrudan shell'den de kullanılabilir — `cargo build` sonrası:
+The extension's features are also available from the shell — after `cargo build`:
 
 ```sh
 # Linux/Mac
 ./target/debug/cyore extract <file>
 # Windows
-.\target\debug/cyore.exe extract <file>
+.\target\debug\cyore.exe extract <file>
 ```
