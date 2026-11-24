@@ -1,6 +1,6 @@
 # Get Started
 
-Kurulum ve kurulum sonrası adımlar — Windows, Mac, Linux.
+Kurulum ve kurulum sonrası adımlar — Windows, PowerShell, Anaconda, Miniconda, Linux terminal, macOS terminal.
 
 ## 1. Kurulum
 
@@ -9,16 +9,43 @@ Kurulum ve kurulum sonrası adımlar — Windows, Mac, Linux.
 - [rustup installer](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe)'i indirip çalıştırın (Rust toolchain).
 - Terminal'de: `cargo build`
 
-### Mac
+### PowerShell (Windows)
 
-```sh
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```powershell
+# Sistemde Rust yoksa — Rust'ı indirip çalıştırın
+# (veya `winget install Rustlang.Rustup`).
+# Sonrasında:
+cargo build
 ```
 
-### Linux
+### Anaconda
+
+```sh
+conda install -c conda-forge rust
+```
+
+Veya yeni ortam: `conda create -n cyore -c conda-forge rust` → `conda activate cyore` → `cargo build`.
+
+### Miniconda
+
+```sh
+conda install -c conda-forge rust
+```
+
+Sonra `cargo build`.
+
+### Linux terminal
 
 ```sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+cargo build
+```
+
+### macOS terminal
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+cargo build
 ```
 
 ### Genel (tüm platformlar)
