@@ -1,5 +1,5 @@
 {
-  "name": "cyore",
+  "name": "@dinguk0624/cyore",
   "displayName": "CYORE — VS Code Extension in Rust",
   "description": "A VS Code extension written in Rust — string extraction (multi-language), AI conversion and CLI for terminal/PowerShell/CMD.",
   "version": "0.0.1",
