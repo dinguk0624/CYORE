@@ -2,14 +2,35 @@
 #include <stdio.h>
 #include <string.h>
 
-static char message[64] = "Hello, world!";
+static const char *MESSAGES[] = {
+    "first message",
+    "second message",
+    "third message",
+    "fourth message"
+};
 
-int add(int a, int b) {
-    return a + b;
+static int count_messages(void) {
+    return (int)(sizeof(MESSAGES) / sizeof(MESSAGES[0]));
+}
+
+static void print_all(void) {
+    int n = count_messages();
+    for (int i = 0; i < n; i++) {
+        printf("msg[%d] = %s\n", i, MESSAGES[i]);
+    }
+}
+
+static int total_length(void) {
+    int total = 0;
+    for (size_t i = 0; i < sizeof(MESSAGES) / sizeof(MESSAGES[0]); i++) {
+        total += (int)strlen(MESSAGES[i]);
+    }
+    return total;
 }
 
 int main(void) {
-    printf("%s\n", message);
-    printf("sum: %d\n", add(1, 2));
+    printf("messages: %d\n", count_messages());
+    print_all();
+    printf("total length: %d\n", total_length());
     return 0;
 }

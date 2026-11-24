@@ -1,5 +1,5 @@
 # example.py — CYORE string extraction demo (Python)
-from typing import List
+from typing import Dict, List, Tuple
 
 
 def greeting(name: str) -> str:
@@ -13,6 +13,7 @@ def add(a: int, b: int) -> int:
 class Counter:
     def __init__(self, start: int = 0):
         self._value = start
+        self._history: List[int] = []
 
     @property
     def value(self) -> int:
@@ -20,7 +21,33 @@ class Counter:
 
     def increment(self) -> int:
         self._value += 1
+        self._history.append(self._value)
         return self._value
+
+    def history(self) -> List[int]:
+        return list(self._history)
+
+
+def stats(numbers: List[int]) -> Tuple[int, float]:
+    if not numbers:
+        return 0, 0.0
+    total = sum(numbers)
+    return len(numbers), total / len(numbers)
+
+
+MESSAGES = [
+    "hello world",
+    "second message",
+    "third message",
+    "fourth message with more words",
+    "fifth message",
+]
+
+CONFIG: Dict[str, str] = {
+    "language": "python",
+    "description": "CYORE example",
+    "version": "1.0",
+}
 
 
 def main() -> None:
@@ -30,9 +57,6 @@ def main() -> None:
     counter.increment()
     counter.increment()
     print(counter.value)
-
-
-MESSAGES = ["hello world", "second message", "third message"]
-
-if __name__ == "__main__":
-    main()
+    print(counter.history())
+    print(stats([1, 2, 3, 4, 5]))
+    print(MESSAGES)
