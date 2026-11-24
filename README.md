@@ -54,6 +54,9 @@ CYORE/
 ├── README.md
 ├── README.tr
 ├── INSTALL.md
+├── CHANGELOG.md
+├── icon.svg
+├── .github/
 ├── .gitignore
 └── LICENSE
 ```
