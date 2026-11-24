@@ -32,7 +32,7 @@ or open the repo: [dinguk0624/CYORE](https://github.com/dinguk0624/CYORE)
   the active file and shows them in the **CYORE** output channel with their
   offsets.
 - **Multi-language** — language-aware extraction for Python, Go, C, C++,
-  JavaScript (generic otherwise).
+  JavaScript, TypeScript, Ruby, PHP, Java, Kotlin, Swift, C# (generic otherwise).
 - **AI conversion** — **CYORE: Convert File to Rust with AI**
   (`cyore.convertToRustAI`) — sends the active file to the selected AI
   provider (Claude, Qwen or OpenAI; via `cyore.aiProvider` and

@@ -89,6 +89,12 @@ fn detect_lang(path: &str) -> &'static str {
         "js" | "mjs" | "cjs" => "javascript",
         "rs" => "rust",
         "ts" | "tsx" | "mts" | "cts" => "typescript",
+        "rb" => "ruby",
+        "php" => "php",
+        "java" => "java",
+        "kt" => "kotlin",
+        "swift" => "swift",
+        "cs" => "csharp",
         _ => "generic",
     }
 }
@@ -102,6 +108,12 @@ fn extract_strings_lang(data: &[u8], lang: &str, min_len: usize) -> Vec<(usize, 
         "c" | "cpp" => extract_quoted(data, &[b'"', b'\''], min_len),
         "rust" => extract_quoted(data, &[b'"'], min_len),
         "typescript" => extract_quoted(data, &[b'"', b'`'], min_len),
+        "ruby" => extract_quoted(data, &[b'"', b'\''], min_len),
+        "php" => extract_quoted(data, &[b'"', b'\''], min_len),
+        "java" => extract_quoted(data, &[b'"'], min_len),
+        "kotlin" => extract_quoted(data, &[b'"', b'`'], min_len),
+        "swift" => extract_quoted(data, &[b'"'], min_len),
+        "csharp" => extract_quoted(data, &[b'"'], min_len),
         _ => extract_strings(data, min_len),
     }
 }
@@ -216,6 +228,12 @@ mod tests {
         assert_eq!(detect_lang("/a/b/c.js"), "javascript");
         assert_eq!(detect_lang("/a/b/c.rs"), "rust");
         assert_eq!(detect_lang("/a/b/c.ts"), "typescript");
+        assert_eq!(detect_lang("/a/b/c.rb"), "ruby");
+        assert_eq!(detect_lang("/a/b/c.php"), "php");
+        assert_eq!(detect_lang("/a/b/c.java"), "java");
+        assert_eq!(detect_lang("/a/b/c.kt"), "kotlin");
+        assert_eq!(detect_lang("/a/b/c.swift"), "swift");
+        assert_eq!(detect_lang("/a/b/c.cs"), "csharp");
         assert_eq!(detect_lang("/a/b/noext"), "generic");
     }
 
