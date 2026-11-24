@@ -55,6 +55,31 @@ done\t<count>
 1. Open a file in the editor.
 2. Run the command via the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`).
 3. Configure `cyore.aiProvider` (Claude, Qwen, OpenAI) and `cyore.aiApiKey`; the generated Rust code appears in the `CYORE` output channel.
+4. Verify the generated code with `cargo check` or `cargo build`.
+
+### Command Search Tips
+
+In the Command Palette, quick access:
+
+- `extract` — `CYORE: Extract Strings` (`cyore.extractStrings`)
+- `strings` — same command
+- `rust` — `CYORE: Convert File to Rust with AI` (`cyore.convertToRustAI`)
+- `ai` — same command
+
+### Backend / Stdio Test (no VS Code)
+
+Test the Rust backend directly with stdin:
+
+```sh
+echo "ping" | target/debug/cyore
+echo "extract <file-path>" | target/debug/cyore
+```
+
+Expected output: `pong`; for `extract` — `<offset>\t<string>` lines followed by `done\t<count>`.
+
+### Scope Clarity
+
+Both **Extract Strings** and **Convert File to Rust with AI** operate on the **active file** only — nothing is modified or saved by the extension.
 
 ### Copy-Paste Settings
 
@@ -77,6 +102,7 @@ Settings for `settings.json`:
 - `CYORE: Rust backend is not running` — run `cargo build` first, then reload the window (`Developer: Reload Window`).
 - No strings found — the file has no printable strings longer than `cyore.minStringLength`.
 - `CYORE: AI conversion failed` / `Set cyore.aiApiKey in settings` — check `cyore.aiProvider` and `cyore.aiApiKey`.
+- Verify AI output — run `cargo check` or `cargo build` after applying the generated code.
 
 ## Architecture
 

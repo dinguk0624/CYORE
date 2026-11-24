@@ -49,6 +49,31 @@ done\t<count>
 1. Bir dosya açın.
 2. Komut paletinden çalıştırın (`Ctrl+Shift+P` / `Cmd+Shift+P`).
 3. `cyore.aiProvider` (Claude, Qwen, OpenAI) ve `cyore.aiApiKey` ayarlarını yapın; üretilen Rust kodu `CYORE` output channel'ında görünür.
+4. Üretilen kodu `cargo check` veya `cargo build` ile doğrulayın.
+
+### Komut Arama İpuçları
+
+Komut paletinde hızlı erişim:
+
+- `extract` — `CYORE: Extract Strings` (`cyore.extractStrings`)
+- `strings` — aynı komut
+- `rust` — `CYORE: Convert File to Rust with AI` (`cyore.convertToRustAI`)
+- `ai` — aynı komut
+
+### Backend / Stdio Testi (VS Code olmadan)
+
+Rust backend'ini doğrudan stdin ile test edin:
+
+```sh
+echo "ping" | target/debug/cyore
+echo "extract <file-path>" | target/debug/cyore
+```
+
+Beklenen çıktı: `pong`; `extract` için — `<offset>\t<string>` satırları + `done\t<count>`.
+
+### Kapsam Netliği
+
+**String çıkarma** ve **AI ile Rust'a dönüştürme** işlemleri her iki şeyde de yalnızca **aktif dosya** üzerinde çalışır — extension tarafından dosya üzerinde değişiklik yok, kaydedilmemiş.
 
 ### Yapıştır-Kopyala Ayarları
 
@@ -71,6 +96,7 @@ done\t<count>
 - `CYORE: Rust backend is not running` — önce `cargo build` komutunu çalıştırın, ardından pencereyi yenileyin (`Developer: Reload Window`).
 - String bulunamadı — dosyada yapılandırılan `cyore.minStringLength` değerinden uzun printable string yok.
 - `CYORE: AI conversion failed` / `Set cyore.aiApiKey in settings` — sağlayıcı ve API key'i kontrol edin (`cyore.aiProvider`, `cyore.aiApiKey`).
+- AI çıktısı derlemedi — `cargo check`/`cargo build` çalıştırıp belirtilen sorunları düzeltin.
 
 ## Mimari
 
