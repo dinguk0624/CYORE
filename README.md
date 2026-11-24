@@ -5,18 +5,8 @@
 [![Written in Rust](https://img.shields.io/badge/Written-in-Rust-orange?logo=rust)](https://www.rust-lang.org/)
 [![GitHub](https://img.shields.io/badge/Repo-181717?logo=github)](https://github.com/dinguk0624/CYORE)
 
-A VS Code extension written in Rust — the extension is converted to Rust.
-This extension was written by converting an existing extension to Rust (by expanding it) — the extension's logic is Rust (`src/main.rs`).
-AI conversion is included — see the [Features](#features) section.
+A VS Code extension written in Rust — the extension's logic is Rust (`src/main.rs`).
 Installation steps: [INSTALL.md](INSTALL.md).
-
-## Why CYORE?
-
-- **Written in Rust** — the extension logic lives in `src/main.rs` (Rust);
-  `extension.js` just spawns the Rust binary.
-- **Local, fast, no network** — extraction runs on your machine — nothing is
-  uploaded anywhere.
-- **Zero-dependency** — the Rust backend uses only the standard library.
 
 ## Table of contents
 
@@ -30,38 +20,37 @@ Installation steps: [INSTALL.md](INSTALL.md).
 ## Features
 
 - **CYORE: Extract Strings** (`cyore.extractStrings`) — extracts strings from
-  the active file and shows them in the **CYORE** output channel, prefixed
-  by their offset.
-- **Multi-language** — language-aware string extraction for **Python, Go,
-  C, C++, JavaScript** (generic for others).
+  the active file and shows them in the **CYORE** output channel with their
+  offsets.
+- **Multi-language** — language-aware extraction for Python, Go, C, C++,
+  JavaScript (generic otherwise).
 - **AI conversion** — **CYORE: Convert File to Rust with AI**
   (`cyore.convertToRustAI`) — sends the active file to the selected AI
-  provider (**Claude, Qwen, OpenAI** — via `cyore.aiProvider` and
-  `cyore.aiApiKey` settings) and shows the generated Rust code in the
-  **CYORE** output channel.
+  provider (Claude, Qwen or OpenAI; via `cyore.aiProvider` and
+  `cyore.aiApiKey`) and shows the generated Rust code.
 
 ## Usage
 
 1. Open a file in the editor.
-2. Run the command **CYORE: Extract Strings** (`cyore.extractStrings`).
-3. The extracted strings appear in the **CYORE** output channel
-   (`View → Output → CYORE`) — one line per string, `<offset>  <string>`.
+2. Run **CYORE: Extract Strings** (`cyore.extractStrings`).
+3. Extracted strings appear in the **CYORE** output channel
+   (`View → Output → CYORE`) — one line per string: `<offset>  <string>`.
 
 ## Architecture
 
-The extension is a Rust program; the TS wrapper spawns it:
+The extension is a Rust program; the wrapper spawns it:
 
 ```
 CYORE/
 ├── package.json       # extension manifest
 ├── extension.js       # wrapper: spawns the Rust backend
-├── src/main.rs        # the extension logic (string extraction, in Rust)
+├── src/main.rs        # the extension logic (in Rust)
 ├── Cargo.toml         # cargo manifest
 ├── README.md
 ├── README.tr
 ├── INSTALL.md
 ├── CHANGELOG.md
-├── icon.svg
+├── icon.png
 ├── .github/
 ├── .gitignore
 └── LICENSE
@@ -70,7 +59,7 @@ CYORE/
 Protocol between `extension.js` and `src/main.rs` (stdio):
 
 - `ping` → `pong`
-- `min <n>` → `ok` — minimum string length for extraction (default: `4`; configurable via the `cyore.minStringLength` setting)
+- `min <n>` → `ok` — minimum string length for extraction (default: `4`; configurable via `cyore.minStringLength`)
 - `extract <path>` → one line per string: `<offset>\t<string>`, then `done\t<count>`
 - `<anything else>` → ignored
 
@@ -80,23 +69,17 @@ Protocol between `extension.js` and `src/main.rs` (stdio):
 cargo build
 ```
 
-The wrapper spawns `target/debug/cyore`.
-
 ## Security
 
-- The extension spawns the Rust binary `target/debug/cyore` (built with
-  `cargo build`). If the binary is missing, the extension logs an error in
-  the **CYORE** output channel and does nothing else.
-- Extraction runs locally on the path of the active document — no network
-  requests are made, no data leaves the machine, no files are modified.
-- To verify what the extension does, review `src/main.rs` (the extension
-  logic) and `extension.js` (the wrapper).
-- If you find a security issue, please open an issue on the
-  [repository](https://github.com/dinguk0624/CYORE/issues) or use the
-  [security advisories](https://github.com/dinguk0624/CYORE/security/advisories/new).
+- The extension spawns `target/debug/cyore`; if the binary is missing, it
+  logs an error in the **CYORE** output channel and does nothing else.
+- Extraction runs locally — no network requests are made, no files are
+  modified.
+- See `src/main.rs` and `extension.js` for the implementation.
+- Security issues: open an issue on the
+  [repository](https://github.com/dinguk0624/CYORE/issues).
 
 ## Publishing
 
 1. Set `publisher` in `package.json` to your marketplace publisher ID.
-2. Push the repo to GitHub and publish with `vsce` — like your other
-   extensions, but this one is written in Rust.
+2. Push to GitHub and publish with `vsce`.

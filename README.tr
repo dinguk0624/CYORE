@@ -5,16 +5,8 @@
 [![Written in Rust](https://img.shields.io/badge/Written-in-Rust-orange?logo=rust)](https://www.rust-lang.org/)
 [![GitHub](https://img.shields.io/badge/Repo-181717?logo=github)](https://github.com/dinguk0624/CYORE)
 
-A VS Code extension written in Rust — the extension is converted to Rust.
-Bu extension mevcut bir extension'u Rust'a çeviriştirilerek (fazlalaştırılarak) yazıldı — uzantının mantığı Rust'ta (`src/main.rs`).
-AI destekli dönüşüm dahil — [Özellikler](#özellikler) bölümüne bakın.
+A VS Code extension written in Rust — uzantının mantığı Rust'ta (`src/main.rs`).
 Kurulum adımları için: [INSTALL.md](INSTALL.md).
-
-## Neden CYORE?
-
-- **Rust'ta yazıldı** — uzantının mantığı `src/main.rs` (Rust); `extension.js` sadece Rust binary'yi başlatır.
-- **Yerel, hızlı, network yok** — çıkarma makinede çalışır; hiçbir şey yüklenmez/gönderilmez.
-- **Bağımlılık yok** — Rust backend sadece standart kütüphaneyi kullanıyor.
 
 ## İçindekiler
 
@@ -27,29 +19,31 @@ Kurulum adımları için: [INSTALL.md](INSTALL.md).
 
 ## Özellikler
 
-- **CYORE: Extract Strings** (`cyore.extractStrings`) — aktif dosyadan printable string'leri (uzunluk ≥ 4) çıkarır ve **CYORE** output channel'ına offset ile gösterir.
+- **CYORE: Extract Strings** (`cyore.extractStrings`) — aktif dosyadan string'leri çıkarır, **CYORE** output channel'ına offset ile gösterir.
+- **Çoklu dil desteği** — Python, Go, C, C++, JavaScript için dil beynli (başka diller için genel).
+- **AI dönüşümü** — **CYORE: Convert File to Rust with AI** (`cyore.convertToRustAI`) — aktif dosyayı seçilen AI provider'a (Claude, Qwen veya OpenAI — `cyore.aiProvider` ve `cyore.aiApiKey` ayarlarıyla) gönderir ve oluşturulan Rust kodunu gösterir.
 
 ## Kullanım
 
 1. Bir dosya açın.
 2. Komut paletinde **CYORE: Extract Strings** (`cyore.extractStrings`) komutunu çalıştırın.
-3. Çıkarılan string'ler **CYORE** output channel'ına gider (`View → Output → CYORE`) — string başına bir satır, `<offset>  <string>`.
+3. Çıkarılan string'ler **CYORE** output channel'ına gider (`View → Output → CYORE`) — string başına bir satır: `<offset>  <string>`.
 
 ## Mimari
 
-Extension Rust programıdır; TS wrapper onu başlatır:
+Extension Rust programıdır; wrapper onu başlatır:
 
 ```
 CYORE/
 ├── package.json       # extension manifest
 ├── extension.js       # wrapper: spawns the Rust backend
-├── src/main.rs        # the extension logic (string extraction, in Rust)
+├── src/main.rs        # the extension logic (in Rust)
 ├── Cargo.toml         # cargo manifest
 ├── README.md
 ├── README.tr
 ├── INSTALL.md
 ├── CHANGELOG.md
-├── icon.svg
+├── icon.png
 ├── .github/
 ├── .gitignore
 └── LICENSE
@@ -58,7 +52,7 @@ CYORE/
 Protocol (extension.js ↔ src/main.rs, stdio):
 
 - `ping` → `pong`
-- `min <n>` → `ok` — çıkarım için minimum string uzunluğu (varsayılan: `4`; `cyore.minStringLength` ayarı ile değiştirilebilir)
+- `min <n>` → `ok` — çıkarım için minimum string uzunluğu (varsayılan: `4`; `cyore.minStringLength` ayarı ile)
 - `extract <path>` → string başına bir satır: `<offset>\t<string>`, sonra `done\t<count>`
 - `<diğer her şey>` → yok sayılır
 
@@ -68,16 +62,14 @@ Protocol (extension.js ↔ src/main.rs, stdio):
 cargo build
 ```
 
-Wrapper `target/debug/cyore` binary'ni başlatır.
-
 ## Güvenlik
 
-- Extension, Rust binary'yi `target/debug/cyore` başlatır (cargo build ile). Binary eksikse, extension **CYORE** output channel'ına hata loglar ve hiçbir şey yapmaz.
-- Çıkarma, aktif dokümanın yolu üzerinde yerel olarak çalışır — network istekleri yok, veri dışarı çıkmaz, dosya değiştirilmez.
-- Ne yaptığını doğrulamak için `src/main.rs` (extension mantığı) ve `extension.js`'i (wrapper) inceleyin.
-- Güvenlik sorunu bulursanız, [repository](https://github.com/dinguk0624/CYORE/issues) issue açın veya [security advisories](https://github.com/dinguk0624/CYORE/security/advisories/new).
+- Extension, `target/debug/cyore` binary'ni başlatır; binary eksikse hata loglar ve hiçbir şey yapmaz.
+- Çıkarma, aktif doküman üzerinde yerel olarak çalışır — network istekleri yok, dosya değiştirilmez.
+- Uygulama için `src/main.rs` ve `extension.js`'e bakın.
+- Güvenlik sorunları: [repository](https://github.com/dinguk0624/CYORE/issues) issue açın.
 
 ## Yayınlama
 
 1. `package.json`'daki `publisher` alanına marketplace publisher ID'nizi yazın.
-2. Repoyu GitHub'a pushlayın, `vsce` ile publish edin — diğer extension'larınız gibi, bu extension Rust'ta yazıldı.
+2. Repoyu GitHub'a pushlayın, `vsce` ile publish edin.
