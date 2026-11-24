@@ -6,8 +6,8 @@
 [![GitHub](https://img.shields.io/badge/Repo-181717?logo=github)](https://github.com/dinguk0624/CYORE)
 
 A VS Code extension written in Rust — the extension is converted to Rust.
-Bu extension mevcut bir extension'u Rust'a çeviriştirilerek (fazlalaştırılarak) yazıldı — uzantının mantığı Rust'ta (`src/main.rs`).
-Kurulum adımları için: [INSTALL.md](INSTALL.md).
+This extension was written by converting an existing extension to Rust (by expanding it) — the extension's logic is Rust (`src/main.rs`).
+Installation steps: [INSTALL.md](INSTALL.md).
 
 ## Why CYORE?
 
@@ -50,6 +50,8 @@ CYORE/
 ├── src/main.rs        # the extension logic (string extraction, in Rust)
 ├── Cargo.toml         # cargo manifest
 ├── README.md
+├── README.tr
+├── INSTALL.md
 ├── .gitignore
 └── LICENSE
 ```
