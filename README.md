@@ -33,6 +33,11 @@ Installation steps: [INSTALL.md](INSTALL.md).
   by their offset.
 - **Multi-language** — language-aware string extraction for **Python, Go,
   C, C++, JavaScript** (generic for others).
+- **AI conversion** — **CYORE: Convert File to Rust with AI**
+  (`cyore.convertToRustAI`) — sends the active file to the selected AI
+  provider (**Claude, Qwen, OpenAI** — via `cyore.aiProvider` and
+  `cyore.aiApiKey` settings) and shows the generated Rust code in the
+  **CYORE** output channel.
 
 ## Usage
 
