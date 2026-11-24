@@ -3,7 +3,7 @@
   "displayName": "CYORE — VS Code Extension in Rust",
   "description": "A VS Code extension written in Rust — the extension is converted to Rust.",
   "version": "0.0.1",
-  "publisher": "your-publisher-id",
+  "publisher": "dinguk062499999",
   "engines": {
     "vscode": "^1.80.0"
   },
