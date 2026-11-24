@@ -28,9 +28,11 @@ Installation steps: [INSTALL.md](INSTALL.md).
 
 ## Features
 
-- **CYORE: Extract Strings** (`cyore.extractStrings`) — extracts printable
-  strings (length ≥ 4) from the active file and shows them in the **CYORE**
-  output channel, prefixed by their offset.
+- **CYORE: Extract Strings** (`cyore.extractStrings`) — extracts strings from
+  the active file and shows them in the **CYORE** output channel, prefixed
+  by their offset.
+- **Multi-language** — language-aware string extraction for **Python, Go,
+  C, C++, JavaScript** (generic for others).
 
 ## Usage
 

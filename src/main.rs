@@ -46,6 +46,68 @@ fn extract_strings(data: &[u8], min_len: usize) -> Vec<(usize, String)> {
     found
 }
 
+/// Extracts quoted strings: scans for the given quote characters, and for
+/// each opening quote finds the closing quote (handling `\` escapes).
+fn extract_quoted(data: &[u8], quotes: &[u8], min_len: usize) -> Vec<(usize, String)> {
+    let mut found = Vec::new();
+    let mut i = 0usize;
+    while i < data.len() {
+        let b = data[i];
+        if quotes.contains(&b) {
+            let start = i;
+            let q = b;
+            let mut j = i + 1;
+            let mut closed = false;
+            while j < data.len() {
+                if data[j] == b'\\' {
+                    j += 2;
+                    continue;
+                }
+                if data[j] == q {
+                    closed = true;
+                    break;
+                }
+                j += 1;
+            }
+            if closed && j > i + 1 && j - i - 1 >= min_len {
+                found.push((start, String::from_utf8_lossy(&data[i + 1..j]).to_string()));
+            }
+            i = j + 1;
+            continue;
+        }
+        i += 1;
+    }
+    found
+}
+
+/// Detects a language from a file extension (best effort).
+fn detect_lang(path: &str) -> &'static str {
+    let ext = path
+        .rsplit('.')
+        .next()
+        .unwrap_or("")
+        .to_ascii_lowercase();
+    match ext.as_str() {
+        "py" => "python",
+        "go" => "go",
+        "c" => "c",
+        "cpp" | "cc" | "cxx" => "cpp",
+        "js" | "mjs" | "cjs" => "javascript",
+        _ => "generic",
+    }
+}
+
+/// Language-aware extraction entry point.
+fn extract_strings_lang(data: &[u8], lang: &str, min_len: usize) -> Vec<(usize, String)> {
+    match lang {
+        "python" => extract_quoted(data, &[b'"', b'\''], min_len),
+        "go" => extract_quoted(data, &[b'"', b'`'], min_len),
+        "javascript" => extract_quoted(data, &[b'"', b'`'], min_len),
+        "c" | "cpp" => extract_quoted(data, &[b'"', b'\''], min_len),
+        _ => extract_strings(data, min_len),
+    }
+}
+
 fn main() {
     let stdin = io::stdin();
     let stdout = io::stdout();
@@ -70,7 +132,7 @@ fn main() {
             let path = line["extract ".len()..].to_string();
             match fs::read(&path) {
                 Ok(data) => {
-                    let strings = extract_strings(&data, min_len);
+                    let strings = extract_strings_lang(&data, detect_lang(&path), min_len);
                     let count = strings.len();
                     for (offset, s) in &strings {
                         let _ = writeln!(out, "{}\t{}", offset, s);
@@ -88,7 +150,7 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use super::extract_strings;
+    use super::{detect_lang, extract_quoted, extract_strings, extract_strings_lang};
 
     #[test]
     fn extracts_strings_with_offsets() {
@@ -114,6 +176,38 @@ mod tests {
                 (3usize, "cd".to_string()),
                 (6usize, "efgh".to_string()),
             ]
+        );
+    }
+
+    #[test]
+    fn detects_languages() {
+        assert_eq!(detect_lang("/a/b/c.py"), "python");
+        assert_eq!(detect_lang("/a/b/c.go"), "go");
+        assert_eq!(detect_lang("/a/b/c.c"), "c");
+        assert_eq!(detect_lang("/a/b/c.cpp"), "cpp");
+        assert_eq!(detect_lang("/a/b/c.js"), "javascript");
+        assert_eq!(detect_lang("/a/b/c.rs"), "generic");
+        assert_eq!(detect_lang("/a/b/noext"), "generic");
+    }
+
+    #[test]
+    fn extracts_quoted_strings() {
+        let data = b"print('hello world')\n";
+        assert_eq!(
+            extract_quoted(data, &[b'\''], 4),
+            vec![(6usize, "hello world".to_string())]
+        );
+        // Go/JS-style backtick strings and escapes in double quotes.
+        let go = b"x := `hello go`\n";
+        assert_eq!(extract_quoted(go, &[b'"', b'`'], 3), vec![(5usize, "hello go".to_string())]);
+    }
+
+    #[test]
+    fn language_extraction_dispatch() {
+        let data = b"print('abcdef')\n";
+        assert_eq!(
+            extract_strings_lang(data, "python", 4),
+            vec![(6usize, "abcdef".to_string())]
         );
     }
 }
