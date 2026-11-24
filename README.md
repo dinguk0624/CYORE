@@ -118,7 +118,7 @@ Settings for `settings.json`:
 
 ### Visual Demo Area
 
-<!-- ![CYORE Demo](assets/demo.gif) -->
+<!-- ![CYORE Demo](assets/og.png) -->
 
 ## Troubleshooting
 
