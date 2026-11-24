@@ -106,7 +106,37 @@ fn extract_strings_lang(data: &[u8], lang: &str, min_len: usize) -> Vec<(usize, 
     }
 }
 
+fn run_cli(args: &[String]) {
+    if args.len() < 2 {
+        eprintln!("usage: cyore extract <path> | cyore ping | cyore version");
+        return;
+    }
+    match args[1].as_str() {
+        "extract" if args.len() >= 3 => {
+            let path = args[2].clone();
+            match fs::read(&path) {
+                Ok(data) => {
+                    let strings = extract_strings_lang(&data, detect_lang(&path), 4);
+                    for (offset, s) in &strings {
+                        println!("{}\t{}", offset, s);
+                    }
+                }
+                Err(e) => eprintln!("error: {}", e),
+            }
+        }
+        "ping" => println!("pong"),
+        "version" => println!(env!("CARGO_PKG_VERSION")),
+        _ => eprintln!("usage: cyore extract <path> | cyore ping | cyore version"),
+    }
+}
+
 fn main() {
+    let args: Vec<String> = std::env::args().collect();
+    if args.len() >= 2 {
+        run_cli(&args);
+        return;
+    }
+
     let stdin = io::stdin();
     let stdout = io::stdout();
     let mut out = stdout.lock();

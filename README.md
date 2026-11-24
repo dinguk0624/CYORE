@@ -65,6 +65,21 @@ done\t<count>
 3. Configure `cyore.aiProvider` (Claude, Qwen, OpenAI) and `cyore.aiApiKey`; the generated Rust code appears in the `CYORE` output channel.
 4. Verify the generated code with `cargo check` or `cargo build`.
 
+### C. CLI — terminal, PowerShell, CMD
+
+The extension also has a CLI. After `cargo build`, run the binary directly:
+
+```sh
+# Linux/macOS
+./target/debug/cyore extract <file>
+```
+
+```powershell
+.\target\debug\cyore.exe extract <file>
+```
+
+Other commands: `cyore ping` (health check), `cyore version`.
+
 ### Command Search Tips
 
 In the Command Palette, quick access:

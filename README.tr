@@ -59,6 +59,21 @@ done\t<count>
 3. `cyore.aiProvider` (Claude, Qwen, OpenAI) ve `cyore.aiApiKey` ayarlarını yapın; üretilen Rust kodu `CYORE` output channel'ında görünür.
 4. Üretilen kodu `cargo check` veya `cargo build` ile doğrulayın.
 
+### C. CLI — terminal, PowerShell, CMD
+
+Extension'un da bir CLI'sı var — `cargo build` sonrası binary doğrudan çalıştırılabilir:
+
+```sh
+# Linux/macOS
+./target/debug/cyore extract <file>
+```
+
+```powershell
+.\target\debug\cyore.exe extract <file>
+```
+
+Diğer komutlar: `cyore ping` (sağlık kontrolü), `cyore version`.
+
 ### Komut Arama İpuçları
 
 Komut paletinde hızlı erişim:

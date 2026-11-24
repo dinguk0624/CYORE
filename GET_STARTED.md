@@ -56,3 +56,14 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 3. Üretilen Rust kodu `CYORE` output channel'ında görünür; `cargo check` / `cargo build` ile doğrulayın.
 
 Detaylar: [README — Usage](README.md#usage), [INSTALL.md](INSTALL.md), [Troubleshooting](README.md#troubleshooting).
+
+## 4. CLI (PowerShell, CMD, terminal)
+
+Uzantının özellikleri doğrudan shell'den de kullanılabilir — `cargo build` sonrası:
+
+```sh
+# Linux/Mac
+./target/debug/cyore extract <file>
+# Windows
+.\target\debug/cyore.exe extract <file>
+```
