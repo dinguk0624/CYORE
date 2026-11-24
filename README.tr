@@ -12,6 +12,7 @@ Kurulum adımları için: [INSTALL.md](INSTALL.md).
 
 - [Özellikler](#özellikler)
 - [Kullanım](#kullanım)
+- [Sorun Giderme](#sorun-giderme)
 - [Mimari](#mimari)
 - [Yapı/Derleme](#yapı)
 - [Güvenlik](#güvenlik)
@@ -25,29 +26,51 @@ Kurulum adımları için: [INSTALL.md](INSTALL.md).
 
 ## Kullanım
 
-### Ön koşul
+### Hızlı Başlangıç (Ön Koşullar)
 
-Extension, `target/debug/cyore` binary dosyasından başlar — binary olması için önce `cargo build` komutunu çalıştırın.
+1. `cargo build` komutunu çalıştırın — extension, Rust backend'ini `target/debug/cyore` dosyasından başlatır.
+2. VS Code'da `F5` (Extension Development Host) basarak extension'u test edin.
 
-### CYORE: Extract Strings
+### A. String Çıkarma (`cyore.extractStrings`)
 
 1. Bir dosya açın.
-2. Komut paletinde **CYORE: Extract Strings** (`cyore.extractStrings`) komutunu çalıştırın.
-3. Çıkarılan string'ler **CYORE** output channel'ında görünür (`View → Output → CYORE`) — string başına bir satır: `<offset>  <string>`.
-4. Minimum string uzunluğu: `cyore.minStringLength` (varsayılan: 4).
-
-Örnek çıktı:
+2. Komut paletinden çalıştırın (Windows/Linux'ta `Ctrl+Shift+P`, macOS'ta `Cmd+Shift+P`).
+3. Sonuçlar `View -> Output -> CYORE` üzerinde görünür — her satır offset ile bir string:
 
 ```
-12	hello world
-29	second string
+<offset>\t<string>
+done\t<count>
 ```
 
-### CYORE: Convert File to Rust with AI
+4. Minimum string uzunluğunu `cyore.minStringLength` (varsayılan: 4) ile ayarlayın.
 
-1. Extension ayarlarında `cyore.aiProvider` (Claude, Qwen, OpenAI) ve `cyore.aiApiKey` değerlerini yapın.
-2. Aktif dosyada **CYORE: Convert File to Rust with AI** (`cyore.convertToRustAI`) komutunu çalıştırın.
-3. Üretilen Rust kodu **CYORE** output channel'ında görünür.
+### B. AI ile Dosyayı Rust'a Dönüştürme (`cyore.convertToRustAI`)
+
+1. Bir dosya açın.
+2. Komut paletinden çalıştırın (`Ctrl+Shift+P` / `Cmd+Shift+P`).
+3. `cyore.aiProvider` (Claude, Qwen, OpenAI) ve `cyore.aiApiKey` ayarlarını yapın; üretilen Rust kodu `CYORE` output channel'ında görünür.
+
+### Yapıştır-Kopyala Ayarları
+
+`settings.json` içine yapıştırılabilir ayarlar:
+
+```json
+{
+  "cyore.minStringLength": 4,
+  "cyore.aiProvider": "claude",
+  "cyore.aiApiKey": "<your-api-key>"
+}
+```
+
+### Görsel Demo Alanı
+
+<!-- ![CYORE Demo](assets/demo.gif) -->
+
+## Sorun Giderme
+
+- `CYORE: Rust backend is not running` — önce `cargo build` komutunu çalıştırın, ardından pencereyi yenileyin (`Developer: Reload Window`).
+- String bulunamadı — dosyada yapılandırılan `cyore.minStringLength` değerinden uzun printable string yok.
+- `CYORE: AI conversion failed` / `Set cyore.aiApiKey in settings` — sağlayıcı ve API key'i kontrol edin (`cyore.aiProvider`, `cyore.aiApiKey`).
 
 ## Mimari
 

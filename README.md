@@ -12,6 +12,7 @@ Installation steps: [INSTALL.md](INSTALL.md).
 
 - [Features](#features)
 - [Usage](#usage)
+- [Troubleshooting](#troubleshooting)
 - [Architecture](#architecture)
 - [Build](#build)
 - [Security](#security)
@@ -31,30 +32,51 @@ Installation steps: [INSTALL.md](INSTALL.md).
 
 ## Usage
 
-### Preconditions
+### Quick Start (Prerequisites)
 
-The extension spawns the Rust backend from `target/debug/cyore` — run
-`cargo build` first so the binary exists.
+1. Run `cargo build` — the extension spawns the Rust backend from `target/debug/cyore`.
+2. In VS Code, press `F5` (Extension Development Host) to test the extension.
 
-### CYORE: Extract Strings
+### A. Extract Strings (`cyore.extractStrings`)
 
 1. Open a file in the editor.
-2. Run **CYORE: Extract Strings** (`cyore.extractStrings`) from the Command Palette.
-3. Extracted strings appear in the **CYORE** output channel (`View → Output → CYORE`) — one line per string: `<offset>  <string>`.
-4. Minimum string length: `cyore.minStringLength` (default: 4).
-
-Example output:
+2. Run the command via the Command Palette (`Ctrl+Shift+P` on Windows/Linux, `Cmd+Shift+P` on macOS).
+3. The results appear in `View -> Output -> CYORE` — each line is a string with its offset:
 
 ```
-12	hello world
-29	second string
+<offset>\t<string>
+done\t<count>
 ```
 
-### CYORE: Convert File to Rust with AI
+4. Adjust the minimum string length with `cyore.minStringLength` (default: 4).
 
-1. Set `cyore.aiProvider` (Claude, Qwen, OpenAI) and `cyore.aiApiKey` in the extension settings.
-2. Run **CYORE: Convert File to Rust with AI** (`cyore.convertToRustAI`) on the active file.
-3. The generated Rust code appears in the **CYORE** output channel.
+### B. Convert File to Rust with AI (`cyore.convertToRustAI`)
+
+1. Open a file in the editor.
+2. Run the command via the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`).
+3. Configure `cyore.aiProvider` (Claude, Qwen, OpenAI) and `cyore.aiApiKey`; the generated Rust code appears in the `CYORE` output channel.
+
+### Copy-Paste Settings
+
+Settings for `settings.json`:
+
+```json
+{
+  "cyore.minStringLength": 4,
+  "cyore.aiProvider": "claude",
+  "cyore.aiApiKey": "<your-api-key>"
+}
+```
+
+### Visual Demo Area
+
+<!-- ![CYORE Demo](assets/demo.gif) -->
+
+## Troubleshooting
+
+- `CYORE: Rust backend is not running` — run `cargo build` first, then reload the window (`Developer: Reload Window`).
+- No strings found — the file has no printable strings longer than `cyore.minStringLength`.
+- `CYORE: AI conversion failed` / `Set cyore.aiApiKey in settings` — check `cyore.aiProvider` and `cyore.aiApiKey`.
 
 ## Architecture
 
