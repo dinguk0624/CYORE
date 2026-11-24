@@ -2,7 +2,7 @@
 name = "cyore"
 version = "0.0.1"
 edition = "2021"
-description = "A VS Code extension written in Rust (string extraction)"
+description = "A VS Code extension written in Rust — string extraction and AI conversion"
 
 [[bin]]
 name = "cyore"

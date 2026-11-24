@@ -7,6 +7,7 @@
 
 A VS Code extension written in Rust — the extension is converted to Rust.
 This extension was written by converting an existing extension to Rust (by expanding it) — the extension's logic is Rust (`src/main.rs`).
+AI conversion is included — see the [Features](#features) section.
 Installation steps: [INSTALL.md](INSTALL.md).
 
 ## Why CYORE?

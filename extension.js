@@ -1,6 +1,6 @@
-// CYORE — a VS Code extension written in Rust — the extension is converted to Rust.
-// The extension logic (string extraction) lives in src/main.rs; this wrapper
-// spawns the Rust binary (built with cargo) and talks to it over stdio.
+// CYORE — a VS Code extension written in Rust — string extraction (multi-language) + AI conversion.
+// The extension logic lives in src/main.rs; this wrapper spawns the Rust
+// binary (built with cargo) and talks to it over stdio.
 'use strict';
 
 const cp = require('child_process');

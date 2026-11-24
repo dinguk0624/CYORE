@@ -1,7 +1,7 @@
 {
   "name": "cyore",
   "displayName": "CYORE — VS Code Extension in Rust",
-  "description": "A VS Code extension written in Rust — the extension is converted to Rust.",
+  "description": "A VS Code extension written in Rust — string extraction (multi-language) and AI conversion to Rust.",
   "version": "0.0.1",
   "icon": "icon.png",
   "publisher": "dinguk062499999",

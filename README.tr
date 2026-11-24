@@ -7,6 +7,7 @@
 
 A VS Code extension written in Rust — the extension is converted to Rust.
 Bu extension mevcut bir extension'u Rust'a çeviriştirilerek (fazlalaştırılarak) yazıldı — uzantının mantığı Rust'ta (`src/main.rs`).
+AI destekli dönüşüm dahil — [Özellikler](#özellikler) bölümüne bakın.
 Kurulum adımları için: [INSTALL.md](INSTALL.md).
 
 ## Neden CYORE?
