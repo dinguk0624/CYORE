@@ -87,6 +87,8 @@ fn detect_lang(path: &str) -> &'static str {
         "c" => "c",
         "cpp" | "cc" | "cxx" => "cpp",
         "js" | "mjs" | "cjs" => "javascript",
+        "rs" => "rust",
+        "ts" | "tsx" | "mts" | "cts" => "typescript",
         _ => "generic",
     }
 }
@@ -98,6 +100,8 @@ fn extract_strings_lang(data: &[u8], lang: &str, min_len: usize) -> Vec<(usize, 
         "go" => extract_quoted(data, &[b'"', b'`'], min_len),
         "javascript" => extract_quoted(data, &[b'"', b'`'], min_len),
         "c" | "cpp" => extract_quoted(data, &[b'"', b'\''], min_len),
+        "rust" => extract_quoted(data, &[b'"'], min_len),
+        "typescript" => extract_quoted(data, &[b'"', b'`'], min_len),
         _ => extract_strings(data, min_len),
     }
 }
@@ -180,7 +184,8 @@ mod tests {
         assert_eq!(detect_lang("/a/b/c.c"), "c");
         assert_eq!(detect_lang("/a/b/c.cpp"), "cpp");
         assert_eq!(detect_lang("/a/b/c.js"), "javascript");
-        assert_eq!(detect_lang("/a/b/c.rs"), "generic");
+        assert_eq!(detect_lang("/a/b/c.rs"), "rust");
+        assert_eq!(detect_lang("/a/b/c.ts"), "typescript");
         assert_eq!(detect_lang("/a/b/noext"), "generic");
     }
 
