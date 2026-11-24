@@ -25,9 +25,29 @@ Kurulum adımları için: [INSTALL.md](INSTALL.md).
 
 ## Kullanım
 
+### Ön koşul
+
+Extension, `target/debug/cyore` binary dosyasından başlar — binary olması için önce `cargo build` komutunu çalıştırın.
+
+### CYORE: Extract Strings
+
 1. Bir dosya açın.
 2. Komut paletinde **CYORE: Extract Strings** (`cyore.extractStrings`) komutunu çalıştırın.
-3. Çıkarılan string'ler **CYORE** output channel'ına gider (`View → Output → CYORE`) — string başına bir satır: `<offset>  <string>`.
+3. Çıkarılan string'ler **CYORE** output channel'ında görünür (`View → Output → CYORE`) — string başına bir satır: `<offset>  <string>`.
+4. Minimum string uzunluğu: `cyore.minStringLength` (varsayılan: 4).
+
+Örnek çıktı:
+
+```
+12	hello world
+29	second string
+```
+
+### CYORE: Convert File to Rust with AI
+
+1. Extension ayarlarında `cyore.aiProvider` (Claude, Qwen, OpenAI) ve `cyore.aiApiKey` değerlerini yapın.
+2. Aktif dosyada **CYORE: Convert File to Rust with AI** (`cyore.convertToRustAI`) komutunu çalıştırın.
+3. Üretilen Rust kodu **CYORE** output channel'ında görünür.
 
 ## Mimari
 

@@ -31,10 +31,30 @@ Installation steps: [INSTALL.md](INSTALL.md).
 
 ## Usage
 
+### Preconditions
+
+The extension spawns the Rust backend from `target/debug/cyore` — run
+`cargo build` first so the binary exists.
+
+### CYORE: Extract Strings
+
 1. Open a file in the editor.
-2. Run **CYORE: Extract Strings** (`cyore.extractStrings`).
-3. Extracted strings appear in the **CYORE** output channel
-   (`View → Output → CYORE`) — one line per string: `<offset>  <string>`.
+2. Run **CYORE: Extract Strings** (`cyore.extractStrings`) from the Command Palette.
+3. Extracted strings appear in the **CYORE** output channel (`View → Output → CYORE`) — one line per string: `<offset>  <string>`.
+4. Minimum string length: `cyore.minStringLength` (default: 4).
+
+Example output:
+
+```
+12	hello world
+29	second string
+```
+
+### CYORE: Convert File to Rust with AI
+
+1. Set `cyore.aiProvider` (Claude, Qwen, OpenAI) and `cyore.aiApiKey` in the extension settings.
+2. Run **CYORE: Convert File to Rust with AI** (`cyore.convertToRustAI`) on the active file.
+3. The generated Rust code appears in the **CYORE** output channel.
 
 ## Architecture
 
