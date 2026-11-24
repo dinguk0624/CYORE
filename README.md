@@ -8,6 +8,14 @@
 A VS Code extension written in Rust — the extension's logic is Rust (`src/main.rs`).
 Installation steps: [INSTALL.md](INSTALL.md).
 
+## Quick Start
+
+```sh
+cargo install --git https://github.com/dinguk0624/CYORE
+```
+
+or open the repo: [dinguk0624/CYORE](https://github.com/dinguk0624/CYORE)
+
 ## Table of contents
 
 - [Features](#features)
