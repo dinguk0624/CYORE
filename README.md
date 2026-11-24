@@ -3,9 +3,19 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![VS Code](https://img.shields.io/badge/VS%20Code-Extension-blue?logo=visual-studio-code)](https://code.visualstudio.com/)
 [![Written in Rust](https://img.shields.io/badge/Written-in-Rust-orange?logo=rust)](https://www.rust-lang.org/)
+[![VS Code Marketplace](https://img.shields.io/badge/Marketplace-007ACC?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=dinguk062499999.cyore)
+[![GitHub stars](https://img.shields.io/github/stars/dinguk0624/CYORE?style=flat)](https://github.com/dinguk0624/CYORE/stargazers)
 [![GitHub](https://img.shields.io/badge/Repo-181717?logo=github)](https://github.com/dinguk0624/CYORE)
 
 A VS Code extension written in Rust — the extension is converted to Rust.
+
+## Why CYORE?
+
+- **Written in Rust** — the extension logic lives in `src/main.rs` (Rust);
+  `extension.js` just spawns the Rust binary.
+- **Local, fast, no network** — extraction runs on your machine — nothing is
+  uploaded anywhere.
+- **Zero-dependency** — the Rust backend uses only the standard library.
 
 ## Table of contents
 
